@@ -2,6 +2,7 @@ import React from 'react';
 import { Container } from "@mui/material";
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import ChosenProduct from './ChosenProduct';
+import "../../../css/products.css"
 import Products from './Products';
 export  default function ProductsPage() {
 const products = useRouteMatch();
