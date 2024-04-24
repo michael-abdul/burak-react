@@ -16,10 +16,9 @@ export interface Product {
   productDesc?: string;
   productImages: string[];
   productViews: number;
-  createAt: Date;
-  updateAt: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
-
 export interface ProductInquiry {
   order: string;
   page: number;
