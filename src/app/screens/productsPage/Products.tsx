@@ -100,7 +100,10 @@ export default function Products() {
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
                     onKeyDown={(e) => {
-                      if (e.key === "Enter") searchProductHandler();
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        searchProductHandler();
+                      }
                     }}
                   />
                   <Button
