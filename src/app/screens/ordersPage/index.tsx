@@ -7,72 +7,86 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PausedOrders from "./PausedOrders";
 import ProcessOrders from "./ProcessOrders";
 import FinishedOrders from "./FinishedOrders";
+import { Dispatch } from "@reduxjs/toolkit";
+import { Order } from "../../../lib/types/order";
+import { setFinishedOrders, setPausedOrders, setProcessOrders } from "./slice";
+import { useDispatch } from "react-redux";
 import "../../../css/order.css";
 
-export default function OrdersPage(){
+/** REDUX SLICE & SELECTOR **/
+const actionDispatch = (dispatch: Dispatch) => ({
+  setPausedOrders: (data: Order[]) => dispatch(setPausedOrders(data)),
+  setProcessOrders: (data: Order[]) => dispatch(setProcessOrders(data)),
+  setFinishedOrders: (data: Order[]) => dispatch(setFinishedOrders(data)),
+});
+
+export default function OrdersPage() {
+  const { setPausedOrders, setProcessOrders, setFinishedOrders } =
+    actionDispatch(useDispatch());
   const [value, setValue] = useState("1");
-  const handleChange = (e:SyntheticEvent, newValue: string) => {
+
+  // Handlers
+
+  const handleChange = (e: SyntheticEvent, newValue: string) => {
     console.log("newValue", newValue);
     setValue(newValue);
-};
+  };
 
-
-return(
-  <div className={"order-page"}>
-    <Container className="order-container">
-      <Stack className="order-left">
-        <TabContext value={value}>
-          <Box className="order-nav-frame">
-            <Box sx={{borderBottom: 1, borderColor: "divider"}}>
-              <Tabs
-              value={value}
-              onChange={handleChange}
-              aria-label="basic tabs example"
-              className={"table_list"}
-              >
-                <Tab label="PAUSED ORDERS" value="1" />
-                <Tab label="PROCESS ORDERS" value="2" />
-                <Tab label="FINISHED ORDERS" value="3" />
-              </Tabs>
+  return (
+    <div className={"order-page"}>
+      <Container className="order-container">
+        <Stack className="order-left">
+          <TabContext value={value}>
+            <Box className="order-nav-frame">
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <Tabs
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="basic tabs example"
+                  className={"table_list"}
+                >
+                  <Tab label="PAUSED ORDERS" value="1" />
+                  <Tab label="PROCESS ORDERS" value="2" />
+                  <Tab label="FINISHED ORDERS" value="3" />
+                </Tabs>
+              </Box>
             </Box>
-          </Box>
-          <Stack className={" order-main-content"}>
-            <PausedOrders />
-            <ProcessOrders/>
-            <FinishedOrders/>
-      </Stack>
-      </TabContext>
-      </Stack>
-     
-     
-      <Stack className={"order-right"}>
-        <Box className={"order-info-box"} >
-          <Box className={"member-box"}>
-            <div className={"order-user-img"}>
-              <img src={"/icons/default-user.svg"}
-              className={"order-user-avatar"}
-              />
-              <div className={"order-user-icon-box"}>
-                <img src={"/icons/user-badge.svg"}
-                className={"order-user-prof-img"}
+            <Stack className={" order-main-content"}>
+              <PausedOrders />
+              <ProcessOrders />
+              <FinishedOrders />
+            </Stack>
+          </TabContext>
+        </Stack>
+
+        <Stack className={"order-right"}>
+          <Box className={"order-info-box"}>
+            <Box className={"member-box"}>
+              <div className={"order-user-img"}>
+                <img
+                  src={"/icons/default-user.svg"}
+                  className={"order-user-avatar"}
                 />
+                <div className={"order-user-icon-box"}>
+                  <img
+                    src={"/icons/user-badge.svg"}
+                    className={"order-user-prof-img"}
+                  />
+                </div>
               </div>
-            </div>
-            <span className={"order-user-name"}>Martin</span>
-            <span  className={"order-user-prof"}>User</span>
-        </Box>
-        <Box className={"liner"}></Box>
-        <Box className={"order-user-address"}>
+              <span className={"order-user-name"}>Martin</span>
+              <span className={"order-user-prof"}>User</span>
+            </Box>
+            <Box className={"liner"}></Box>
+            <Box className={"order-user-address"}>
               <div style={{ display: "flex" }}>
                 <LocationOnIcon />
               </div>
-              <div className={"spec-address-txt"}>
-               Do not exist
-              </div>
+              <div className={"spec-address-txt"}>Do not exist</div>
             </Box>
           </Box>
-       
-            <Box className={"order-info-box"} sx={{ mt: "15px" }}>
+
+          <Box className={"order-info-box"} sx={{ mt: "15px" }}>
             <input
               type={"text"}
               name={"card_number"}
